@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+
+  base:
+    build: ./
+    entrypoint: /bin/bash
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  irb:
+    extends: base
+    entrypoint: irb
+    volumes:
+      - ./:/app
+
+  kimurai:
+    extends: base
+    entrypoint: bundle exec kimurai
+    volumes:
+      - ./:/app
+
+  crawl:
+    extends: kimurai
+    command: crawl
+    volumes:
+      - ./:/app
